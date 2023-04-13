@@ -181,7 +181,7 @@ mode "resize" {
 bindsym $sup+r mode "resize"
 
 # class                 border  bground text    indicator child_border
-client.focused          #d65d0e #d65d0e #fbf1c7 #d65d0e   #51A2DA
+client.focused          #777696 #777696 #fbf1c7 #777696   #51A2DA
 client.focused_inactive #282828 #282828 #fbf1c7 #282828   #282828
 client.unfocused        #282828 #282828 #fbf1c7 #282828   #282828
 client.urgent           #EC69A0 #DB3279 #fbf1c7 #DB3279   #DB3279
@@ -191,9 +191,10 @@ client.background       #FFFFFF
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-exec_always feh --bg-fill $HOME/Pictures/wallpaper/forest1.jpg
+exec_always feh --bg-fill $HOME/Pictures/wall-dracula/first-collection/fedora.png
 exec_always ~/.config/polybar/launch.sh &
 
 #rofi
 bindsym $sup+Shift+g exec --no-startup-id rofi -show drun
 #language keyboard
+exec_always "setxkbmap -layout us,ir"
