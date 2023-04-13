@@ -1,17 +1,3 @@
-}
-div.container p {
-text-align: left;
-font-family: Times;
-font-size: 16px;
-font-style: italic;
-font-weight: bold;
-text-decoration: none;
-text-transform: capitalize;
-color: #000000;
-background-color: #ffffff;
-}
-</style>
-
 <div class="container">
 <p>i3wm + polybar (theme) By EmirVoid</p>
 <p>my minmal i3wm and polybar so simple as first time using wm</p>
