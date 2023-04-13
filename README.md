@@ -1,9 +1,3 @@
-<!-- HTML Codes by Quackit.com -->
-<!DOCTYPE html>
-<title>Text Example</title>
-<style>
-div.container {
-background-color: #ffffff;
 }
 div.container p {
 text-align: left;
