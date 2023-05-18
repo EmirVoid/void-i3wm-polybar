@@ -9,12 +9,11 @@
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
-set $mod Mod1
-set $sup Mod4
+set $mod Mod4
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:Hack Nerd Font 9
+font pango:DejaVuSansM Nerd Font 8
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -22,7 +21,7 @@ font pango:Hack Nerd Font 9
 
 # Start XDG autostart .desktop files using dex. See also
 # https://wiki.archlinux.org/index.php/XDG_Autostart
-exec --no-startup-id dex-autostart --autostart --environment i3
+exec --no-startup-id dex --autostart --environment i3
 
 # The combination of xss-lock, nm-applet and pactl is a popular choice, so
 # they are included here as an example. Modify as you see fit.
@@ -32,8 +31,8 @@ exec --no-startup-id dex-autostart --autostart --environment i3
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 
 # NetworkManager is the most popular way to manage wireless networks on Linux,
-# and nm-applet is a desktop environment-independent system tray GUI for it.
-exec --no-startup-id nm-applet
+#and nm-applet is a desktop environment-independent system tray GUI for it.
+exec_always --no-startup-id nm-applet
 
 # Use pactl to adjust volume in PulseAudio.
 set $refresh_i3status killall -SIGUSR1 i3status
@@ -43,16 +42,22 @@ bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute @DEFAULT_SINK@ to
 bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOURCE@ toggle && $refresh_i3status
 
 # Use Mouse+$mod to drag floating windows to their wanted position
-floating_modifier $sup
+floating_modifier $mod
+
+# move tiling windows via drag & drop by left-clicking into the title bar,
+# or left-clicking anywhere into the window while holding the floating modifier.
+tiling_drag modifier titlebar
 
 # start a terminal
-bindsym $sup+Return exec alacritty
+bindsym $mod+Return exec alacritty
 
 # kill focused window
-bindsym $sup+Shift+q kill
+bindsym $mod+q kill
 
 # start dmenu (a program launcher)
-bindsym $sup+d exec --no-startup-id "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '#005577' -sf '#EEEEEE' -fn 'monospace-10'"
+bindsym $mod+d exec --no-startup-id dmenu_run
+#start rofi
+bindsym $mod+shift+g exec --no-startup-id rofi -show drun
 # A more modern dmenu replacement is rofi:
 # bindcode $mod+40 exec "rofi -modi drun,run -show drun"
 # There also is i3-dmenu-desktop which only displays applications shipping a
@@ -60,51 +65,51 @@ bindsym $sup+d exec --no-startup-id "dmenu_run -nf '#BBBBBB' -nb '#222222' -sb '
 # bindcode $mod+40 exec --no-startup-id i3-dmenu-desktop
 
 # change focus
-bindsym $sup+j focus left
-bindsym $sup+k focus down
-bindsym $sup+l focus up
-bindsym $sup+semicolon focus right
+bindsym $mod+j focus left
+bindsym $mod+k focus down
+bindsym $mod+l focus up
+bindsym $mod+semicolon focus right
 
 # alternatively, you can use the cursor keys:
-bindsym $sup+Left focus left
-bindsym $sup+Down focus down
-bindsym $sup+Up focus up
-bindsym $sup+Right focus right
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
 
 # move focused window
-bindsym $sup+Shift+j move left
-bindsym $sup+Shift+k move down
-bindsym $sup+Shift+l move up
-bindsym $sup+Shift+semicolon move right
+bindsym $mod+Shift+j move left
+bindsym $mod+Shift+k move down
+bindsym $mod+Shift+l move up
+bindsym $mod+Shift+semicolon move right
 
 # alternatively, you can use the cursor keys:
-bindsym $sup+Shift+Left move left
-bindsym $sup+Shift+Down move down
-bindsym $sup+Shift+Up move up
-bindsym $sup+Shift+Right move right
+bindsym $mod+Shift+Left move left
+bindsym $mod+Shift+Down move down
+bindsym $mod+Shift+Up move up
+bindsym $mod+Shift+Right move right
 
 # split in horizontal orientation
-bindsym $sup+h split h
+bindsym $mod+h split h
 
 # split in vertical orientation
-bindsym $sup+v split v
+bindsym $mod+v split v
 
 # enter fullscreen mode for the focused container
-bindsym $sup+f fullscreen toggle
+bindsym $mod+f fullscreen toggle
 
 # change container layout (stacked, tabbed, toggle split)
-bindsym $sup+s layout stacking
-bindsym $sup+w layout tabbed
-bindsym $sup+e layout toggle split
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
 
 # toggle tiling / floating
-bindsym $sup+Shift+space floating toggle
+bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
-bindsym $sup+space focus mode_toggle
+bindsym $mod+space focus mode_toggle
 
 # focus the parent container
-bindsym $sup+a focus parent
+bindsym $mod+a focus parent
 
 # focus the child container
 #bindsym $mod+d focus child
@@ -147,11 +152,11 @@ bindsym $mod+Shift+9 move container to workspace number $ws9
 bindsym $mod+Shift+0 move container to workspace number $ws10
 
 # reload the configuration file
-bindsym $sup+Shift+c reload
+bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $sup+Shift+r restart
+bindsym $mod+Shift+r restart
 # exit i3 (logs you out of your X session)
-bindsym $sup+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
@@ -175,26 +180,18 @@ mode "resize" {
         # back to normal: Enter or Escape or $mod+r
         bindsym Return mode "default"
         bindsym Escape mode "default"
-        bindsym $sup+r mode "default"
+        bindsym $mod+r mode "default"
 }
 
-bindsym $sup+r mode "resize"
-
-# class                 border  bground text    indicator child_border
-client.focused          #777696 #777696 #fbf1c7 #777696   #51A2DA
-client.focused_inactive #282828 #282828 #fbf1c7 #282828   #282828
-client.unfocused        #282828 #282828 #fbf1c7 #282828   #282828
-client.urgent           #EC69A0 #DB3279 #fbf1c7 #DB3279   #DB3279
-client.placeholder      #000000 #0C0C0C #fbf1c7 #000000   #0C0C0C
-
-client.background       #FFFFFF
+bindsym $mod+r mode "resize"
 
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
-exec_always feh --bg-fill $HOME/Pictures/wall-dracula/first-collection/fedora.png
-exec_always ~/.config/polybar/launch.sh &
-
-#rofi
-bindsym $sup+Shift+g exec --no-startup-id rofi -show drun
-#language keyboard
-exec_always "setxkbmap -layout us,ir"
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+exec_always --no-startup-id nitrogen --restore
+exec_always --no-startup-id picom --config ~/.config/picom/picom.conf
+exec_always "setxkbmap -model pc104 -layout us,ir -variant ,, -option grp:alt_shift_toggle"
+default_border pixel 0
+smart_gaps on
+gaps inner 10
+gaps outer 0
